@@ -14,7 +14,6 @@ import json
 
 # export GOOGLE_APPLICATION_CREDENTIALS="/home/yuong/work/pyproj/Keys/blockmacro_local_access.json"
 
-
 ### To start a new firebase database connection
 ### Start a new firebase project
 ### Go to project overview -> Project Settings ->  service Accounts -> select Python under firebase admin sdk -> generate key private key
@@ -23,10 +22,11 @@ import json
 ### Change the projectid(secret) / secretname / projectid(firebase)
 
 ### Testing connection to firebase database
+firebase_database = "blockmacro-7b611"
 firestore_db_api_key = access_secret("blockmacro_firebase_db")
 firestore_db_api_key_dict = json.loads(firestore_db_api_key)
 fbcredentials = service_account.Credentials.from_service_account_info(firestore_db_api_key_dict)
-db = Client("python-firestore-52cfc", fbcredentials)
+db = Client(firebase_database, fbcredentials)
 docs = db.collection('fx').where("currency", "==", "JPY").get()[0]
 print(docs._data['rate'])
 
@@ -41,9 +41,9 @@ print(docs._data['rate'])
 ### Testing connection to firebase auth
 firebase_auth_api_key = access_secret("blockmacro_firebase_auth")
 firebase_auth_api_key_dict = json.loads(firebase_auth_api_key)
-firebase = pyrebase.initialize_app(firebase_auth_api_key_dict) 
+firebase = pyrebase.initialize_app(firebase_auth_api_key_dict)
 auth = firebase.auth()
-email = "test@gmail.com"
+email = "test@gmail.com" 
 password = "123456"
 user = auth.sign_in_with_email_and_password(email, password)
 idtoken = user['idToken']
