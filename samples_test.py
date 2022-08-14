@@ -12,7 +12,7 @@ import json
 ### Go to IAM -> add -> paste the address of the new service account into "new principal" and under select a role select "secret manager secret accessor"
 ### Move the json file into your local drive (change the path below) and run the below command before running python codes to connect to google cloud
 
-# export GOOGLE_APPLICATION_CREDENTIALS="/home/yuong/work/pyproj/Keys/blockmacro_local_access.json"
+# export GOOGLE_APPLICATION_CREDENTIALS="/home/yuong/work/pyproj/Keys/test_local_access.json"
 
 ### To start a new firebase database connection
 ### Start a new firebase project
@@ -21,9 +21,12 @@ import json
 ### Go to security -> Secret manager -> Create secret -> Upload the json file downloaded from firebase
 ### Change the projectid(secret) / secretname / projectid(firebase)
 
+project_id = "testing-33c79"
+# project_id = "blockmacro-7b611"
+
 ### Testing connection to firebase database
-firebase_database = "blockmacro-7b611"
-firestore_db_api_key = access_secret("blockmacro_firebase_db")
+firebase_database = "testing-33c79"
+firestore_db_api_key = access_secret("test_firebase_db", project_id)
 firestore_db_api_key_dict = json.loads(firestore_db_api_key)
 fbcredentials = service_account.Credentials.from_service_account_info(firestore_db_api_key_dict)
 db = Client(firebase_database, fbcredentials)
@@ -39,7 +42,7 @@ print(docs._data['rate'])
 ### Change the projectid(secret) / secretname
 
 ### Testing connection to firebase auth
-firebase_auth_api_key = access_secret("blockmacro_firebase_auth")
+firebase_auth_api_key = access_secret("test_firebase_auth", project_id)
 firebase_auth_api_key_dict = json.loads(firebase_auth_api_key)
 firebase = pyrebase.initialize_app(firebase_auth_api_key_dict)
 auth = firebase.auth()
@@ -60,7 +63,7 @@ print (userinfo)
 ### Change the projectid(secret) / secretname / required_spreadsheet_id - from the url of the spreadsheet itself
 
 ### Testing connection to google sheets
-google_sheets_api_key = access_secret("blockmacro_googlesheets")
+google_sheets_api_key = access_secret("test_googlesheets", project_id)
 google_sheets_api_key_dict = json.loads(google_sheets_api_key)
 gscredentials = service_account.Credentials.from_service_account_info(google_sheets_api_key_dict)
 REQUIRED_SPREADSHEET_ID = '1_lobEzbiuP9TE2UZqmqSAwizT8f2oeuZ8mVuUTbBAsA'
@@ -76,7 +79,7 @@ print (values)
 ### Go to security -> Secret manager -> Create secret
 ### Change the secretname
 ### Testing connection to alpha vantage
-alphavantage_api_key = access_secret("blockmacro_alpha_vantage_api")
+alphavantage_api_key = access_secret("test_alpha_vantage_api", project_id)
 print (alphavantage_api_key)
  
 
