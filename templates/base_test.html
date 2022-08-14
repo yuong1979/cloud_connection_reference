@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</head>
+
+<body>
+
+
+    <div style="margin-top: 50px;" class="ui container split right">
+        <h2> Connection to firebase db</h2>
+        {{ rate }}
+    </div>
+
+    <div style="margin-top: 50px;" class="ui container split right">
+        <h2> Connection to firebase auth </h2>
+        {{ userinfo }}
+    </div>
+
+    <div style="margin-top: 50px;" class="ui container split right">
+        <h2> Connection to api key</h2>
+        {{ alphavantage_api_key }}
+    </div>
+
+    <div style="margin-top: 50px;" class="ui container split right">
+        <h2> Connection to api key</h2>
+        {{ cloud_run_apikey }}
+    </div>
+
+    <div style="margin-top: 50px;" class="ui container split right">
+        <h2> Connection to google sheets</h2>
+        {{ values }}
+    </div>
+
+</body>
+
+</html>
