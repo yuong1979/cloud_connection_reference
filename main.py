@@ -12,23 +12,29 @@ app = Flask(__name__)
 
 port = 5000
 
-### connection to firebase database
+##### run command on docker #####
+##### cloud #####
+# gcloud builds submit --tag gcr.io/testing-33c79/flaskapp
+# gcloud run deploy --image gcr.io/testing-33c79/flaskapp
+##### local #####
+# docker build -t flaskapp .
+# docker run -p 5000:5000 flaskapp
+##### delete images and containers #####
+# docker rmi -f $(docker images -aq)
+# docker rm -vf $(docker ps -aq)
+
+
+### retrieving secrets from gcp 
 firestore_db_api_key = access_secret(firestore_api_key, project_id)
-firestore_db_api_key_dict = json.loads(firestore_db_api_key)
-
-### connection to firebase auth
 firebase_auth_api_key = access_secret(firebase_auth_api_key, project_id)
-firebase_auth_api_key_dict = json.loads(firebase_auth_api_key)
-
-### connection to google sheets
 google_sheets_api_key = access_secret(google_sheets_api_key, project_id)
-google_sheets_api_key_dict = json.loads(google_sheets_api_key)
 
 
 @app.get("/")
 def home():
 
     ### Testing connection to firebase database
+    firestore_db_api_key_dict = json.loads(firestore_db_api_key)
     fbcredentials = service_account.Credentials.from_service_account_info(firestore_db_api_key_dict)
     db = Client(firebase_database, fbcredentials)
     docs = db.collection('fx').where("currency", "==", "JPY").get()[0]
@@ -36,6 +42,7 @@ def home():
     print(rate)
 
     ### Testing connection to firebase auth
+    firebase_auth_api_key_dict = json.loads(firebase_auth_api_key)
     firebase = pyrebase.initialize_app(firebase_auth_api_key_dict)
     auth = firebase.auth()
     email = "test@gmail.com" 
@@ -46,6 +53,7 @@ def home():
     print (userinfo)
 
     ### Testing connection to google sheets
+    google_sheets_api_key_dict = json.loads(google_sheets_api_key)
     gscredentials = service_account.Credentials.from_service_account_info(google_sheets_api_key_dict)
     REQUIRED_SPREADSHEET_ID = '1_lobEzbiuP9TE2UZqmqSAwizT8f2oeuZ8mVuUTbBAsA'
     service = build('sheets', 'v4', credentials=gscredentials)
@@ -71,6 +79,14 @@ def home():
         cloud_run_apikey=cloud_run_apikey, 
         values=values
         )
+
+# @app.get("/")
+# def home():
+#     return render_template("base.html")
+
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=port)
