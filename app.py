@@ -10,6 +10,22 @@ import json
 from settings import project_id, firebase_database, fx_api_key, firestore_api_key, google_sheets_api_key, schedule_function_key, firebase_auth_api_key
 
 
+
+##### run command on docker #####
+##### cloud #####
+# gcloud builds submit --tag gcr.io/testing-33c79/streamlitapp
+# gcloud run deploy --image gcr.io/testing-33c79/streamlitapp
+##### local #####
+# docker build -t streamlitapp .
+# docker run -p 8501:8501 streamlitapp
+##### delete images and containers #####
+# docker rmi -f $(docker images -aq)
+# docker rm -vf $(docker ps -aq)
+
+
+
+
+
 ### retrieving secrets from gcp 
 firestore_db_api_key = access_secret(firestore_api_key, project_id)
 firebase_auth_api_key = access_secret(firebase_auth_api_key, project_id)
@@ -67,3 +83,15 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+#####################
+### For testing #####
+#####################
+
+# def main():
+#     st.set_page_config(page_title="Sales Dashboard", page_icon=":bar_chart:", layout="wide") #layout can be centered
+#     st.write("testing works")
+
+# if __name__ == '__main__':
+#     main()

@@ -22,7 +22,8 @@ port = 5000
 ##### delete images and containers #####
 # docker rmi -f $(docker images -aq)
 # docker rm -vf $(docker ps -aq)
-
+##### instructions to connect to environment variables #####
+# https://youtu.be/JIE89dneaGo
 
 ### retrieving secrets from gcp 
 firestore_db_api_key = access_secret(firestore_api_key, project_id)
