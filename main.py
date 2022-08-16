@@ -6,24 +6,15 @@ from firebase_admin import firestore, credentials, initialize_app
 import pyrebase
 from secret import access_secret
 import json
-from settings import project_id, firebase_database, fx_api_key, firestore_api_key, google_sheets_api_key, schedule_function_key, firebase_auth_api_key
+from settings import (project_id, firebase_database, fx_api_key, firestore_api_key, google_sheets_api_key, 
+                    schedule_function_key, firebase_auth_api_key, email_password)
+
+####### run cmd below before running on local to connection to secrets on GCP #######
+# export GOOGLE_APPLICATION_CREDENTIALS="/home/yuong/work/pyproj/Keys/test_local_access.json"
+# access app on http://localhost:5000/
 
 app = Flask(__name__)
-
 port = 5000
-
-##### run command on docker #####
-##### cloud #####
-# gcloud builds submit --tag gcr.io/testing-33c79/flaskapp
-# gcloud run deploy --image gcr.io/testing-33c79/flaskapp
-##### local #####
-# docker build -t flaskapp .
-# docker run -p 5000:5000 flaskapp
-##### delete images and containers #####
-# docker rmi -f $(docker images -aq)
-# docker rm -vf $(docker ps -aq)
-##### instructions to connect to environment variables #####
-# https://youtu.be/JIE89dneaGo
 
 ### retrieving secrets from gcp 
 firestore_db_api_key = access_secret(firestore_api_key, project_id)

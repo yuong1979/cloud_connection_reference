@@ -13,6 +13,7 @@ import json
 ### Move the json file into your local drive (change the path below) and run the below command before running python codes to connect to google cloud
 
 # export GOOGLE_APPLICATION_CREDENTIALS="/home/yuong/work/pyproj/Keys/test_local_access.json"
+# export GOOGLE_APPLICATION_CREDENTIALS="/home/yuong/work/pyproj/Keys/blockmacro_local_access.json"
 
 ### To start a new firebase database connection
 ### Start a new firebase project

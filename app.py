@@ -7,34 +7,21 @@ from firebase_admin import firestore, credentials, initialize_app
 import pyrebase
 from secret import access_secret
 import json
-from settings import project_id, firebase_database, fx_api_key, firestore_api_key, google_sheets_api_key, schedule_function_key, firebase_auth_api_key
+from settings import (project_id, firebase_database, fx_api_key, firestore_api_key, google_sheets_api_key, 
+                    schedule_function_key, firebase_auth_api_key, email_password)
 
 
-
-##### run command on docker #####
-##### cloud #####
-# gcloud builds submit --tag gcr.io/testing-33c79/streamlitapp
-# gcloud run deploy --image gcr.io/testing-33c79/streamlitapp
-##### local #####
-# docker build -t streamlitapp .
-# docker run -p 8501:8501 streamlitapp
-##### delete images and containers #####
-# docker rmi -f $(docker images -aq)
-# docker rm -vf $(docker ps -aq)
-
-
-
-
+####### run cmd below before running on local to connection to secrets on GCP #######
+# export GOOGLE_APPLICATION_CREDENTIALS="/home/yuong/work/pyproj/Keys/test_local_access.json"
 
 ### retrieving secrets from gcp 
 firestore_db_api_key = access_secret(firestore_api_key, project_id)
 firebase_auth_api_key = access_secret(firebase_auth_api_key, project_id)
 google_sheets_api_key = access_secret(google_sheets_api_key, project_id)
 
-
-
 def main():
     st.set_page_config(page_title="Sales Dashboard", page_icon=":bar_chart:", layout="wide") #layout can be centered
+
 
     ### Testing connection to firebase database
     firestore_db_api_key_dict = json.loads(firestore_db_api_key)
