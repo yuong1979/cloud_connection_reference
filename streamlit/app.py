@@ -10,7 +10,6 @@ import json
 from settings import (project_id, firebase_database, fx_api_key, firestore_api_key, google_sheets_api_key, 
                     schedule_function_key, firebase_auth_api_key, email_password)
 
-
 ####### run cmd below before running on local to connection to secrets on GCP #######
 # export GOOGLE_APPLICATION_CREDENTIALS="/home/yuong/work/pyproj/Keys/test_local_access.json"
 
