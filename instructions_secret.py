@@ -5,6 +5,10 @@ from secret import access_secret
 import pyrebase
 import json
 
+###########################################################################
+##### Instructions for setting up secrets / service accounts on gcp #######
+###########################################################################
+
 ### if running on local the access from local service account needs to be created before you can connect to google cloud
 
 ### Go to credentials and create a new service account
