@@ -3,6 +3,12 @@ on:
   push:
     branches:
       - main
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  APP_ID: flaskapp
+  RUN_REGION: us-east1
+  SA_KEY_JSON: ${{ secrets.GCP_SA_KEY_JSON }}
 jobs:
   deploy:
     name: Deploying 🚀 Clima
@@ -18,22 +24,22 @@ jobs:
         with:
           version: '286.0.0'
           service_account_key: ${{ secrets.GCP_SA_KEY_JSON }}
-          service_account_email: "YOUR_EMAIL"
-          project_id: YOUR_PROJECT_ID
+          service_account_email: 'test-github-actions@testing-33c79.iam.gserviceaccount.com'
+          project_id: $PROJECT_ID
 
       - name: Building (🏗)
         run: |-
           gcloud builds submit \
-            --tag gcr.io/YOUR_PROJECT_ID/SERVICE_ID
+            --tag gcr.io/$PROJECT_ID/APP_ID
 
 
       # Setup gcloud CLI
       - name: Deploy (🚀)
         uses: google-github-actions/deploy-cloudrun@main
         with:
-          service: SERVICE_ID
-          image: gcr.io/YOUR_PROJECT_ID/SERVICE_ID
+          service: APP_ID
+          image: gcr.io/$PROJECT_ID/APP_ID
 
-          region: REGION
+          region: RUN_REGION
           credentials: ${{ secrets.GCP_SA_KEY_JSON }}
-          project_id: YOUR_PROJECT_ID
+          project_id: $PROJECT_ID
